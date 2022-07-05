@@ -1,3 +1,5 @@
+import ItemStatistics from "./ItemStatistics";
+
 import style from "./statistics.module.css";
 
 import PropTypes from "prop-types";
@@ -11,11 +13,7 @@ const Statistics = (props) => {
     if (el === "positivePercentage") {
       elementText = "Positive feedback";
     }
-    return (
-      <li key={el}>
-        <p>{`${elementText}: ${props[el]}`}</p>
-      </li>
-    );
+    return <ItemStatistics key={el} text={elementText} value={props[el]} />;
   });
   return <ul className={style.list}>{elements}</ul>;
 };
