@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Section from "./components/Section";
 import FeedbackOptions from "./components/FeedbackOptions";
 import Statistics from "./components/Statistics";
@@ -22,20 +22,14 @@ const App = () => {
     return total > 0 ? true : false;
   };
 
-  const handleClick = (name) => {
+  const handleClick = useCallback((name) => {
     setState((prevState) => {
       return { ...prevState, [name]: prevState[name] + 1 };
     });
-  };
+  }, []);
 
   const countTotalFeedback = () => {
-    let total = 0;
-    for (const key in state) {
-      if (Object.hasOwnProperty.call(state, key)) {
-        total += state[key];
-      }
-    }
-    return total;
+    return Object.values(state).reduce((acc, el) => acc + el, 0);
   };
 
   const countPositiveFeedbackPercentage = () => {
